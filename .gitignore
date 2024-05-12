@@ -1,0 +1,8 @@
+# editos
+.idea
+.vscode
+
+# node related
+node_modules
+test-reports
+dist
