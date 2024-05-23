@@ -5,8 +5,9 @@ import cookieParser from 'cookie-parser';
 import { errorHandler, notFound } from './middlewares/error-middleware';
 import dummyRouter from './api/v1/dummy/dummy-routes';
 import { apiMethodLoggingMiddleware } from './middlewares/api-method-logger-middleware';
+import os from 'os';
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8888;
 const app = express();
 
 /* Middlewares */
@@ -60,6 +61,7 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+app.listen(PORT, () => {
+  const hostname = os.hostname();
+  console.log(`Server is running at http://${hostname}:${PORT}/`);
 });

@@ -4,6 +4,7 @@ ENV NODE_ENV=${NODE_ENV}
 ARG PORT=3000
 ENV PORT=${PORT}
 EXPOSE $PORT
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 RUN npm i npm@latest -g
 USER node
 WORKDIR /opt/node_app/app
@@ -29,9 +30,8 @@ RUN npm run format:check
 CMD ["npm", "run", "test"] 
 
 
-# default, production
+## default, production
 FROM base as prod
 RUN npm ci --ignore-scripts && mv node_modules ../ && mkdir node_modules 
 RUN ["npm", "build"]
 CMD ["node", "./dist/index.js"]
-
