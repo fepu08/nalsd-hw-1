@@ -3,9 +3,12 @@ import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { errorHandler, notFound } from './middlewares/error-middleware';
-import dummyRouter from './api/v1/dummy/dummy-routes';
 import { apiMethodLoggingMiddleware } from './middlewares/api-method-logger-middleware';
 import os from 'os';
+import {
+  searchVehicleRouter,
+  vehicleRouter,
+} from './api/v1/vehicles/vehicle-routes';
 
 const PORT = process.env.PORT || 8888;
 const app = express();
@@ -22,7 +25,9 @@ app.use(apiMethodLoggingMiddleware);
 app.get('/', (_req, res) => {
   res.send('API is running...');
 });
-app.use('/dummy', dummyRouter);
+
+app.use('/jarmuvek', vehicleRouter);
+app.use('/kereses', searchVehicleRouter);
 
 app.get('/test-error', (_req, _res, next) => {
   if (process.env.NODE_ENV === 'production') {
