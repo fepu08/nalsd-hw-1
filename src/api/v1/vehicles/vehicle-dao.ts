@@ -17,4 +17,8 @@ export class VehicleDAO {
   public static getVehicleByUUID = async (uuid: string) => {
     return await VehicleModel.findByPk(uuid);
   };
+
+  public static getCount = async () => {
+    return await VehicleModel.count();
+  };
 }

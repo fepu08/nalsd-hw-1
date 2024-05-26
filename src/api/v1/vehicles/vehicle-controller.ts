@@ -36,8 +36,9 @@ export class VehicleController {
     res: Response,
     next: NextFunction,
   ): Promise<void> {
-    const response = await Promise.resolve({ endpoint: 'getVehicleById' });
-    res.status(200).json(response);
+    const count = await VehicleService.getVehicleCount();
+    res.setHeader('Content-Type', 'text/plain');
+    res.status(200).send(count.toString());
   }
 
   @DebugLogger()

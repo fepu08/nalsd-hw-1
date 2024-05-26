@@ -11,7 +11,9 @@ export class VehicleService {
     return await VehicleDAO.createVehicle(body);
   }
 
-  public static async getVehicleCount() {}
+  public static async getVehicleCount() {
+    return await VehicleDAO.getCount();
+  }
 
   public static async getVehicleById(uuid: string) {
     return await VehicleDAO.getVehicleByUUID(uuid);
