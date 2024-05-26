@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { asyncHandler } from '../../../utils';
 import { VehicleController } from './vehicle-controller';
+import { validateVehicle } from '../../../middlewares/body-validator-middleware';
 
 const vehicleRouter = Router();
 
@@ -10,7 +11,7 @@ const searchVehicleRouter = Router();
 vehicleRouter
   .route('/')
   .get(asyncHandler(VehicleController.getVehicleCount))
-  .post(asyncHandler(VehicleController.addVehicle));
+  .post(validateVehicle, asyncHandler(VehicleController.addVehicle));
 
 vehicleRouter
   .route('/:uuid')

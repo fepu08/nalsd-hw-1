@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
-import { dummySchema } from '../api/v1/dummy/dummy-schema';
+import { vehicleSchema } from '../api/v1/vehicles/vehicle-schema';
 
 function errorResponse(errorItems: Joi.ValidationErrorItem[]) {
   const errors = errorItems.map((error) => {
@@ -24,4 +24,4 @@ function validate(schema: Joi.ObjectSchema) {
   };
 }
 
-export const validateDummy = validate(dummySchema);
+export const validateVehicle = validate(vehicleSchema);
