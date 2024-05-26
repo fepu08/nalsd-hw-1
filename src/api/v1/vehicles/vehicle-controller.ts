@@ -22,7 +22,10 @@ export class VehicleController {
     res: Response,
     next: NextFunction,
   ) {
-    const response = await Promise.resolve({ endpoint: 'getVehicleById' });
+    const response = await VehicleService.getVehicleById(req.params.uuid);
+    if (response === null) {
+      res.status(404).send();
+    }
     res.status(200).json(response);
   }
 

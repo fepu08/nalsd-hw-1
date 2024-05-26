@@ -2,6 +2,8 @@ import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 import { vehicleSchema } from '../api/v1/vehicles/vehicle-schema';
 
+const uuidSchema = Joi.string().guid({ version: 'uuidv4' });
+
 function errorResponse(errorItems: Joi.ValidationErrorItem[]) {
   const errors = errorItems.map((error) => {
     const { path, message } = error;
@@ -13,15 +15,27 @@ function errorResponse(errorItems: Joi.ValidationErrorItem[]) {
   };
 }
 
-function validate(schema: Joi.ObjectSchema) {
+function validateBody(schema: Joi.ObjectSchema) {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body);
     if (error?.isJoi) {
       res.status(400).json(errorResponse(error.details));
     } else {
-      return next();
+      next();
     }
   };
 }
 
-export const validateVehicle = validate(vehicleSchema);
+function validateUUIDParam() {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const { error } = uuidSchema.validate(req.params.uuid);
+    if (error?.isJoi) {
+      res.status(400).json(errorResponse(error.details));
+    } else {
+      next();
+    }
+  };
+}
+
+export const validateVehicleBody = validateBody(vehicleSchema);
+export const validateUUIDParameter = validateUUIDParam();

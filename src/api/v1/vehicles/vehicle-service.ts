@@ -12,6 +12,10 @@ export class VehicleService {
   }
 
   public static async getVehicleCount() {}
-  public static async getVehicleById() {}
+
+  public static async getVehicleById(uuid: string) {
+    return await VehicleDAO.getVehicleByUUID(uuid);
+  }
+
   public static async searchVehiclesUsingKeyword() {}
 }
