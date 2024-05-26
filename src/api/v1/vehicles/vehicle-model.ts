@@ -9,7 +9,8 @@ export interface VehicleAttributes {
   adatok: string[];
 }
 
-interface VehicleCreationAttributes extends Omit<VehicleAttributes, 'uuid'> {}
+export interface VehicleCreationAttributes
+  extends Omit<VehicleAttributes, 'uuid'> {}
 
 class Vehicle extends Model<VehicleAttributes, VehicleCreationAttributes> {
   declare uuid: string;
@@ -49,8 +50,9 @@ Vehicle.init(
   },
   {
     sequelize,
+    timestamps: false,
     modelName: 'Vehicle',
-    tableName: 'Vehicles',
+    tableName: 'vehicles',
   },
 );
 

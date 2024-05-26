@@ -1,6 +1,7 @@
 import Joi from 'joi';
+import { VehicleAttributes } from './vehicle-model';
 
-export const vehicleSchema = Joi.object({
+export const vehicleSchema = Joi.object<VehicleAttributes>({
   rendszam: Joi.string().required().max(20),
   tulajdonos: Joi.string().required().max(200),
   forgalmi_ervenyes: Joi.string()

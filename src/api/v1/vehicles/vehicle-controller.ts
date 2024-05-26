@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { DebugLogger } from '../../../logger/controller-logger';
+import { VehicleService } from './vehicle-service';
+import { VehicleCreationAttributes } from './vehicle-model';
 
 export class VehicleController {
   @DebugLogger()
@@ -42,7 +44,9 @@ export class VehicleController {
     res: Response,
     next: NextFunction,
   ) {
-    const response = await Promise.resolve({ endpoint: 'getVehicleById' });
-    res.status(201).location('/jarmuvek/mock-uuid-123').json(response);
+    const response = await VehicleService.addVehicle(
+      req.body as VehicleCreationAttributes,
+    );
+    res.status(201).location(`/jarmuvek/${response.uuid}`).json(response);
   }
 }
