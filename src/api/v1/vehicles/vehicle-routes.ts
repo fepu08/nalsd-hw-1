@@ -2,7 +2,8 @@ import { Router } from 'express';
 import { asyncHandler } from '../../../utils';
 import { VehicleController } from './vehicle-controller';
 import {
-  validateUUIDParameter,
+  validateSearchQuery,
+  validateUUIDParam,
   validateVehicleBody,
 } from '../../../middlewares/validator-middleware';
 
@@ -18,10 +19,13 @@ vehicleRouter
   .post(validateVehicleBody, asyncHandler(VehicleController.addVehicle));
 vehicleRouter
   .route('/:uuid')
-  .get(validateUUIDParameter, asyncHandler(VehicleController.getVehicleById));
+  .get(validateUUIDParam, asyncHandler(VehicleController.getVehicleById));
 
 searchVehicleRouter
   .route('/')
-  .get(asyncHandler(VehicleController.getVehicleByKeyword));
+  .get(
+    validateSearchQuery,
+    asyncHandler(VehicleController.getVehicleByKeyword),
+  );
 
 export { vehicleRouter, searchVehicleRouter };
