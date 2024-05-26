@@ -12,8 +12,12 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction,
 ) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   const message = err.message;
+
+  if (isJSONSyntaxError(err)) {
+    statusCode = 400;
+  }
 
   console.log(JSON.stringify({ statusCode, message }));
   const response: { message: string; stack?: string } = { message };
@@ -23,3 +27,7 @@ export const errorHandler = (
 
   res.status(statusCode).json(response);
 };
+
+function isJSONSyntaxError(error: Error) {
+  return error instanceof SyntaxError && /Unexpected token/.test(error.message);
+}
