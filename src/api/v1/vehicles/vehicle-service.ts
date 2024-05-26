@@ -19,5 +19,7 @@ export class VehicleService {
     return await VehicleDAO.getVehicleByUUID(uuid);
   }
 
-  public static async searchVehiclesUsingKeyword() {}
+  public static async searchVehiclesUsingKeyword(keyword: string) {
+    return await VehicleDAO.searchVehicle(keyword);
+  }
 }

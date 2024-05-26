@@ -11,8 +11,10 @@ export class VehicleController {
     res: Response,
     next: NextFunction,
   ) {
-    const response = await Promise.resolve({ endpoint: 'getVehicleById' });
-    res.status(200).json(response);
+    const keyword = req.query.q as string;
+    const vehicles = await VehicleService.searchVehiclesUsingKeyword(keyword);
+
+    res.status(200).json(vehicles);
   }
 
   @DebugLogger()

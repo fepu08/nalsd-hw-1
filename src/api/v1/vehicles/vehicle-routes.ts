@@ -2,9 +2,9 @@ import { Router } from 'express';
 import { asyncHandler } from '../../../utils';
 import { VehicleController } from './vehicle-controller';
 import {
-  validateSearchQuery,
-  validateUUIDParam,
   validateVehicleBody,
+  validateUUIDParam,
+  validateSearchQuery,
 } from '../../../middlewares/validator-middleware';
 
 const vehicleRouter = Router();
