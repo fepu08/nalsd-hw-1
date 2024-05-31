@@ -21,11 +21,6 @@ services:
       - DATABASE=${DATABASE}
     depends_on:
       - db
-    healthcheck:
-      test: ['CMD-SHELL', 'curl -f http://localhost:8888 || exit 1']
-      interval: 30s
-      timeout: 10s
-      retries: 3
     networks:
       - application_network
     deploy:
@@ -56,11 +51,6 @@ services:
       - DATABASE=${DATABASE}
     depends_on:
       - db
-    healthcheck:
-      test: ['CMD-SHELL', 'curl -f http://localhost:8888 || exit 1']
-      interval: 30s
-      timeout: 10s
-      retries: 3
     networks:
       - application_network
     deploy:
@@ -74,10 +64,8 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      api1:
-        condition: service_healthy
-      api2:
-        condition: service_healthy
+      - api1
+      - api2
     ports:
       - '8080:8080'
     networks:
@@ -91,8 +79,9 @@ services:
   db:
     image: 'postgres:16.1'
     restart: always
+    user: postgres
     ports:
-      - '5432:${DB_PORT}'
+      - '5432:5432'
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -100,7 +89,10 @@ services:
     networks:
       - application_network
     volumes:
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+      - db:/var/lib/postgresql/data
       - ./init-db:/docker-entrypoint-initdb.d
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     deploy:
       resources:
         limits:
@@ -113,3 +105,4 @@ networks:
 
 volumes:
   notused:
+  db:

@@ -3,7 +3,6 @@ import { asyncHandler } from '../../../utils';
 import { VehicleController } from './vehicle-controller';
 import {
   validateVehicleBody,
-  validateUUIDParam,
   validateSearchQuery,
 } from '../../../middlewares/validator-middleware';
 
@@ -19,7 +18,7 @@ vehicleRouter
   .post(validateVehicleBody, asyncHandler(VehicleController.addVehicle));
 vehicleRouter
   .route('/:uuid')
-  .get(validateUUIDParam, asyncHandler(VehicleController.getVehicleById));
+  .get(asyncHandler(VehicleController.getVehicleById));
 
 searchVehicleRouter
   .route('/')

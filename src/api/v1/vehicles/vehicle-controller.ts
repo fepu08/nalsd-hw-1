@@ -27,6 +27,7 @@ export class VehicleController {
     const response = await VehicleService.getVehicleById(req.params.uuid);
     if (response === null) {
       res.status(404).send();
+      return;
     }
     res.status(200).json(response);
   }

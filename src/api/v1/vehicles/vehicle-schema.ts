@@ -12,5 +12,5 @@ export const vehicleSchema = Joi.object<VehicleAttributes>({
       'string.empty': `"forgalmi_ervenyes" cannot be an empty field`,
       'any.required': `"forgalmi_ervenyes" is a required field`,
     }),
-  adatok: Joi.array().items(Joi.string().max(200)).max(200),
+  adatok: Joi.array().items(Joi.string().max(200)).max(200).required(),
 });

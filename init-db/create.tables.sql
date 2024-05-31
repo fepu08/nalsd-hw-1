@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS Vehicles (
 	rendszam VARCHAR(20) NOT NULL,
 	tulajdonos VARCHAR(200) NOT NULL,
 	forgalmi_ervenyes VARCHAR(10) NOT NULL,
-	adatok TEXT[] NOT NULL	
+	adatok TEXT[] NOT NULL
 );
 
 CREATE INDEX idx_vehicles_rendszam ON Vehicles(rendszam);

@@ -42,10 +42,10 @@ Vehicle.init(
     },
     adatok: {
       type: DataTypes.ARRAY(DataTypes.STRING(200)),
-      allowNull: false,
       validate: {
         len: [0, 200],
       },
+      allowNull: false,
     },
   },
   {
