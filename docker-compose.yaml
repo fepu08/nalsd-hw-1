@@ -19,6 +19,8 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DATABASE=${DATABASE}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
     depends_on:
       - db
     networks:
@@ -26,7 +28,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '0.5'
           memory: '1GB'
 
   api2:
@@ -49,6 +51,8 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DATABASE=${DATABASE}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
     depends_on:
       - db
     networks:
@@ -56,7 +60,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '0.5'
           memory: '1GB'
 
   nginx:
@@ -97,7 +101,19 @@ services:
       resources:
         limits:
           cpus: '1'
-          memory: '5GB'
+          memory: '4GB'
+
+  redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    networks:
+      - application_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '1GB'
 
 networks:
   application_network:

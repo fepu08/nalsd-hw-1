@@ -1,4 +1,5 @@
 import express from 'express';
+import { connectRedis } from './config/redis';
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -12,6 +13,7 @@ import {
 
 const PORT = process.env.PORT || 8888;
 const app = express();
+void connectRedis();
 
 /* Middlewares */
 app.use(helmet());
