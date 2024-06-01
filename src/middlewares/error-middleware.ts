@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { VehicleAlreadyExistsError } from '../errors/vehicle-already-exists-error';
 
 export const notFound = (req: Request, res: Response, next: NextFunction) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
@@ -12,8 +13,14 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction,
 ) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   const message = err.message;
+
+  if (isJSONSyntaxError(err)) {
+    statusCode = 400;
+  } else if (err instanceof VehicleAlreadyExistsError) {
+    statusCode = 400;
+  }
 
   console.log(JSON.stringify({ statusCode, message }));
   const response: { message: string; stack?: string } = { message };
@@ -23,3 +30,7 @@ export const errorHandler = (
 
   res.status(statusCode).json(response);
 };
+
+function isJSONSyntaxError(error: Error) {
+  return error instanceof SyntaxError && /Unexpected token/.test(error.message);
+}
