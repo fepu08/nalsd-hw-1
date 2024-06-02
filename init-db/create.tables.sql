@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS Vehicles (
 	adatok TEXT[] NOT NULL
 );
 
-CREATE INDEX idx_vehicles_rendszam ON Vehicles(rendszam);
-CREATE INDEX idx_vehicles_tulajdonos ON Vehicles(tulajdonos);
+CREATE INDEX idx_rendszam ON Vehicles (rendszam);
+CREATE INDEX idx_tulajdonos ON Vehicles (tulajdonos);
+CREATE INDEX idx_adatok ON Vehicles USING gin (adatok);
