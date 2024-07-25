@@ -1,12 +1,5 @@
-# dockerized-node-express-typescript-app-template
+# Description
 
-A Dockerized REST API template using Node.js, Express.js, and TypeScript.
-
-This template includes packages such as:
-
-- _ESLint_ for static type analysis
-- _Prettier_ for code formatting
-- _Jest_ & _node-mocks-http_ for unit testing
-- _Nodemon_ for development
-- _Winston_ for logging
-- _Sequelize_ ORM & _pg_ for PostgreSQL connections
+- This is a simple REST API using Node.js, Express, Mongoose, Postgres, and Docker.
+- It was created for a high load system design course as part of a competition. 
+- My main goal was to assess how well a simple app using these technologies would perform under a stress test without any optimization.
